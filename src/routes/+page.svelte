@@ -28,10 +28,8 @@ import { onMount } from "svelte";
                 marquee.querySelector(".track");
                 const allItems = marquee.querySelectorAll(".item"),
                     proxy = document.createElement("div");
-                allItems.length;
                 let totalX = 0,
                     marqueeH = 0;
-                marquee.offsetWidth;
                 allItems.forEach((item, i) => {
                     const itemW = item.offsetWidth,
                         itemH = item.offsetHeight;
@@ -57,9 +55,7 @@ import { onMount } from "svelte";
                         paused: !0,
                         modifiers: {
                             x: function (x, target) {
-                                return `${(x =
-              ((parseInt(x) - totalX) % totalX) +
-              (totalX - target.offsetWidth))}px`;
+                                return `${(x = ((parseInt(x) - totalX) % totalX) + (totalX - target.offsetWidth))}px`;
                             },
                         },
                     });
@@ -148,3 +144,4 @@ import { onMount } from "svelte";
             </div>
         {/each}
 </section>
+<slot name="footer"/>

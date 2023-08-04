@@ -1,4 +1,4 @@
-<footer>
+<footer {...$$restProps}>
     <div class="con top">
         <h2 col="6">©Asger Krause</h2>
         <div col="6">

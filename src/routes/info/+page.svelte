@@ -36,7 +36,6 @@
     header {
     min-height: calc(100vh - 10em);
     }
-
     /* Images */
     .img-w {
     aspect-ratio: 1/0.8;

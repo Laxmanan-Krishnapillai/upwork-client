@@ -31,7 +31,7 @@ export async function load({ fetch }) {
       }
     }`
     const {works} = await hygraph.request(QUERY)
-    console.log(works)
+
     return {
         works
     }
