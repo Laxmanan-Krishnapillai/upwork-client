@@ -19,18 +19,6 @@ function animatePageChange(t) {
       },
     }));
 }
-(window.onload = function () {
-  gsap.to(element, {
-    xPercent: -100,
-    duration: duration,
-    ease: ease,
-    onComplete: () => {
-      gsap.set(element, {
-        xPercent: 100,
-      });
-    },
-  });
-}),
   $(document).ready(function () {
     $("a").on("click", function handleClick(t) {
       if (

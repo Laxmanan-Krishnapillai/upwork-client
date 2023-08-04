@@ -1,6 +1,5 @@
 const smoothSpeed = 0.6;
 const smoothEase = "expo";
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 let smoother = ScrollSmoother.create({
   smooth: smoothSpeed,
   wrapper: ".page",
