@@ -1,5 +1,4 @@
 import { gql } from 'graphql-request';
-import { Hygraph } from "$lib/server/db";
 import { GraphQLClient } from 'graphql-request';
 export async function load({ fetch }) {
     const Hygraph = new GraphQLClient(
