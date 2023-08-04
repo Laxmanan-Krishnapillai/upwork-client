@@ -1,5 +1,5 @@
-import {SECRET_CONTENT_TOKEN} from "$env/static/private";
-import { PUBLIC_CONTENT_URL } from "$env/static/public";
+import { SECRET_CONTENT_TOKEN } from "$env/static/private";
+import { PUBLIC_CONTENT_URL } from "$env/dynamic/public";
 import { GraphQLClient } from 'graphql-request';
 import { gql } from 'graphql-request';
 export async function load({ fetch }) {
