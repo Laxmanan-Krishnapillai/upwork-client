@@ -1,3 +1,8 @@
+<script lang="ts">
+    export let data;
+    $: console.log(data);
+</script>
+
 <svelte:head>
 <title>© Asger Krause</title>
 <meta
@@ -52,15 +57,6 @@
 </style>
 </svelte:head>
 
-<aside class="progress">
-    <div class="con">
-    <div col="3"></div>
-    <div class="relative" click="child" col="7">
-        <div blink theme>Dark mode</div>
-    </div>
-    <div percent>0%</div>
-    </div>
-</aside>
 <header>
     <div class="con">
     <div col="3" hide="600"></div>
@@ -139,13 +135,9 @@
         <h2>Services</h2>
     </div>
     <div col="6">
-        <h3>Service 1</h3>
-        <h3>Service 2</h3>
-        <h3>Service 3</h3>
-        <h3>Service 4</h3>
-        <h3>Service 5</h3>
-        <h3>Service 6</h3>
-        <h3>Service 7</h3>
+        {#each data.services as {name}}
+            <h3>{name}</h3>
+        {/each}
     </div>
     </div>
 </section>
@@ -156,13 +148,9 @@
         <h2>Clients</h2>
     </div>
     <div col="6">
-        <h3>Client 1</h3>
-        <h3>Client 2</h3>
-        <h3>Client 3</h3>
-        <h3>Client 4</h3>
-        <h3>Client 5</h3>
-        <h3>Client 6</h3>
-        <h3>Client 7</h3>
+        {#each data.clients as {name}}
+            <h3>{name}</h3>
+        {/each}
     </div>
     </div>
 </section>

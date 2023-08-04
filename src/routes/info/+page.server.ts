@@ -13,26 +13,17 @@ export async function load({ fetch }) {
         );
     const QUERY = gql`
     {
-      works {
-        media {
-          url
-          mimeType
-        }
-        slug
+      services {
         name
-        client {
-          industry
-          location
-        }
-        services {
-          name
-        }
-        date
+      }
+      clients {
+        name
       }
     }`
-    const {works} = await hygraph.request(QUERY)
-    console.log(works)
+    const {services, clients} = await hygraph.request(QUERY)
+    console.log(services, clients)
     return {
-        works
+        services,
+        clients
     }
 }
