@@ -20,7 +20,7 @@ export async function load({ fetch }) {
         date
       }
     }`
-    const {works} = await hygraph.request(QUERY)
+    const {works} = await Hygraph.request(QUERY)
 
     return {
         works
