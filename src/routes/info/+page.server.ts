@@ -9,14 +9,6 @@ export async function load({ fetch }) {
         }
         }
     );
-    const Hygraph = new GraphQLClient(
-      PUBLIC_CONTENT_URL,
-      {
-        headers: {
-          Authorization: `Bearer ${SECRET_CONTENT_TOKEN}`
-        }
-      }
-    );
     const QUERY = gql`
     {
       services {
