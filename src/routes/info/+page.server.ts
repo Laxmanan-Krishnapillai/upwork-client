@@ -1,9 +1,8 @@
-import { SECRET_CONTENT_TOKEN } from "$env/static/private";
-import { PUBLIC_CONTENT_URL } from "$env/dynamic/public";
-import { GraphQLClient } from 'graphql-request';
 import { gql } from 'graphql-request';
+import { Hygraph } from "$lib/server/db";
+
 export async function load({ fetch }) {
-      const hygraph = new GraphQLClient(
+    const Hygraph = new GraphQLClient(
           PUBLIC_CONTENT_URL,
           {
             headers: {
