@@ -5,7 +5,7 @@
     import Footer from "$lib/Footer.svelte";
     import { browser } from "$app/environment";
     import { onMount } from 'svelte';
-    import { beforeNavigate, goto } from "$app/navigation";
+    import { beforeNavigate, goto, afterNavigate } from "$app/navigation";
     import { navigating } from '$app/stores';
     import { fade } from "svelte/transition";
     // gsap config
@@ -117,9 +117,9 @@
     beforeNavigate(async (n)=>{
         if(!browser) return;
         console.log("running")
-        document.body.style.height = "100%";
-        document.body.style.overflow = "hidden";
         pageAnim()
+    })
+    afterNavigate(()=>{
     })
 </script>
 
