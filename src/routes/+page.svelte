@@ -137,7 +137,7 @@ import { onMount } from "svelte";
                     </div>
                 </div>
                 <div id="bot">
-                    <p col="10" mcol="12" op="50">{services.map(service => service.name).join(", ")}</p> <!-- reference: services will be here -->
+                    <p col="10" mcol="12" op="50">{services.map(service => service.name).sort((a, b) => a.localeCompare(b)).join(", ")}</p> <!-- reference: services will be here -->
                     <p col="2" mcol="12" mfirst op="50">{date.slice(0, date.length - 3).replace("-", "/")}</p> <!-- Launch date will be here -->
                 </div>
             </div>
