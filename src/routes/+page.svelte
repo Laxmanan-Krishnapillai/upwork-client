@@ -2,7 +2,6 @@
 import {browser} from "$app/environment";
 import { onMount } from "svelte";
     export let data;
-    console.log(data);
     type Media = {
         url: string;
         mimeType: string;
@@ -139,7 +138,7 @@ import { onMount } from "svelte";
                 </div>
                 <div id="bot">
                     <p col="10" mcol="12" op="50">{services.map(service => service.name).join(", ")}</p> <!-- reference: services will be here -->
-                    <p col="2" mcol="12" mfirst op="50">{date}</p> <!-- Launch date will be here -->
+                    <p col="2" mcol="12" mfirst op="50">{date.slice(0, date.length - 3).replace("-", "/")}</p> <!-- Launch date will be here -->
                 </div>
             </div>
         {/each}

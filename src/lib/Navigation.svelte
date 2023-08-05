@@ -5,11 +5,9 @@
         </div>
         <div click="child" col="1" mcol="2">
             <a blink href="/">Work</a>
-            <link href="/" />
         </div>
         <div click="child" col="2" mcol="2">
             <a blink href="/info">Info</a>
-            <link href="/info" />
         </div>
         <div col="4" hide="600" op="20">Brand- & Digital Design</div>
         <div col="2" hide="600" class="clock">

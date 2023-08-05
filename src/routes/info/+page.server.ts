@@ -14,7 +14,6 @@ export async function load({ fetch }) {
       }
     }`
     const {services, clients} = await Hygraph.request(QUERY)
-    console.log(services, clients)
     return {
         services,
         clients

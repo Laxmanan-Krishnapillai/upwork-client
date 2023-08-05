@@ -5,20 +5,36 @@
     import Footer from "$lib/Footer.svelte";
     import { browser } from "$app/environment";
     import { onMount } from 'svelte';
-    import { beforeNavigate } from "$app/navigation";
+    import { beforeNavigate, goto } from "$app/navigation";
     import { navigating } from '$app/stores';
+    import { fade } from "svelte/transition";
     // gsap config
     const duration = 0.6, ease = "power4.inOut", smoothSpeed = 0.6, smoothEase = "expo";
     let currentValue = 0;
     // theme config and elements
     let storedTheme: "dark" | "light" | undefined = undefined;
-    let percentCount, toggle, animEl: HTMLElement;
+    let percentCount: HTMLDivElement, toggle: HTMLDivElement;
+    // page animate element
+    let animEl: HTMLElement;
     // gsap smoother
     let smoother: any;
     // time elements
-    let timeStatus, timeValue, timeState, timeContainer: HTMLElement;
-
-    let onOutroEnd;
+    let timeStatus: HTMLDivElement, timeValue: HTMLDivElement, timeState: HTMLDivElement, timeContainer: HTMLDivElement;
+    const pageAnim = () => {
+        let tl = gsap.timeline();
+        tl.to(animEl, {
+            xPercent: 0,
+            duration: .5,
+            ease: "Power4.out"
+        })
+        tl.to(animEl, {
+            xPercent: -100,
+            duration: .5,
+            ease: "Power4.out",
+            delay: 0.5
+        })
+        tl.set(animEl, {xPercent: 100})
+    }
     function updateToggleText(theme: typeof storedTheme) {
         toggle.innerHTML = theme === "dark" ? "Light mode" : "Dark mode";
     }
@@ -40,8 +56,7 @@
         const hours = currentDate.getHours();
         const minutes = currentDate.getMinutes().toString().padStart(2, "0");
         const copenhagenTime = hours + ":" + minutes;
-        timeContainer.textContent = copenhagenTime;
-
+        timeValue.textContent = copenhagenTime;
         const dayOfWeek = currentDate.getDay();
         if (dayOfWeek >= 1 && dayOfWeek <= 5 && hours >= 10 && hours < 16) {
             timeState.classList.add("open");
@@ -74,6 +89,7 @@
         };
         timeValue = document.querySelector(".clock [time]"),  timeState = document.querySelector(".clock [state]"), timeStatus = document.querySelector(".clock [status]"), timeContainer = document.querySelector(".clock");
         setInterval(showCopenhagenTime, 1000);
+
         // register GSAP, taken from main.js
         gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
         smoother = ScrollSmoother.create({
@@ -85,11 +101,7 @@
             effects: true,
             smoothTouch: false,
         });
-        gsap.to(animEl, {
-            xPercent: -100,
-            duration,
-            ease
-        })
+        pageAnim();
     })
 
     navigating.subscribe((n)=>{
@@ -101,22 +113,13 @@
             }
         }
     })
-    beforeNavigate(async ()=>{
+    export let data;
+    beforeNavigate(async (n)=>{
         if(!browser) return;
-        document.body.classList.add("animating");
-        await gsap.to(animEl, {
-            xPercent: 0,
-            duration,
-            ease,
-            onComplete: () => {
-                document.body.classList.remove("animating");
-            },
-        }).then();
-        gsap.to(animEl, {
-            xPercent: -100,
-            duration,
-            ease
-        })
+        console.log("running")
+        document.body.style.height = "100%";
+        document.body.style.overflow = "hidden";
+        pageAnim()
     })
 </script>
 
@@ -136,19 +139,34 @@
 }} />
 <Navigation/>
 
-<aside bind:this={animEl} class="l" />
+<aside id="pageanim" bind:this={animEl} />
+
 <aside class="progress">
     <div class="con">
-    <div col="3"></div>
-    <div class="relative" click="child" col="7">
+        <div col="3"></div>
+        <div class="relative" click="child" col="7">
         <div bind:this={toggle} blink theme>Dark mode</div>
     </div>
     <div bind:this={percentCount} percent>0%</div>
-    </div>
-</aside>
-<div class="page">
-    <main on:outroend={onOutroEnd}>
-        <slot />
-    </main>
 </div>
-<Footer />
+</aside>
+{#key data.url}
+    <div in:fade={{ duration: 100, delay: 500 }} out:fade={{duration: 100, delay: 500}} class="page">
+        <main>
+            <slot />
+            <Footer />
+        </main>
+    </div>
+{/key}
+<style>
+    #pageanim {
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 50;
+        pointer-events: none;
+    }
+</style>
