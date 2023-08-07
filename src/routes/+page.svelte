@@ -133,9 +133,9 @@ import { onMount } from "svelte";
                         <!-- Videos shall have the same settings as you can see belows -->
                         {#each media as {mimeType, url}}
                             {#if mimeType.includes("video")}
-                                <div class="item"><video loading="eager" autoplay loop muted src={url} alt="" /></div>
+                                <video loading="eager" autoplay loop muted src={url} alt="" />
                             {:else}
-                                <div class="item"><img loading="eager" src={url} alt="" /></div>
+                                <img loading="eager" src={url} alt="" />
                             {/if}
                         {/each}
                     </div>
@@ -151,53 +151,52 @@ import { onMount } from "svelte";
 <slot name="footer"/>
 
 <style>
-    .case:not(:last-of-type) {
-      width: 100%;
-      margin-bottom: calc(var(--gap) * 3);
-    }
+      .case {
+        width: 100%;
+        margin-bottom: calc(var(--gap) * 3);
+      }
 
-    .case > #top,
-    .case > #bot {
-      width: calc(var(--col-12) + var(--space));
-      margin-right: calc(var(--space) * -1);
-      gap: 0 var(--space);
-      padding: 0.25em 0;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
+      .case > #top,
+      .case > #bot {
+        width: calc(var(--col-12) + var(--space));
+        margin-right: calc(var(--space) * -1);
+        gap: 0 var(--space);
+        padding: 0.25em 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
 
-    .marquee {
-      position: relative;
-      overflow: hidden;
-      display: block;
-      margin-left: calc(var(--space) * -1);
-      width: 100vw;
-      height: 16em;
-    }
+      .marquee {
+        position: relative;
+        overflow: hidden;
+        display: block;
+        margin-left: calc(var(--space) * -1);
+        width: 100vw;
+        height: 16em;
+      }
 
-    .marquee video {
-      filter: brightness(105%) contrast(96%) saturate(110%);
-      aspect-ratio: 1/1;
-    }
+      .marquee video {
+        filter: brightness(105%) contrast(96%) saturate(110%);
+        aspect-ratio: 1/1;
+      }
 
-    .marquee img {
-      filter: brightness(100%) contrast(98%) saturate(110%);
-    }
+      .marquee img {
+        filter: brightness(100%) contrast(98%) saturate(110%);
+      }
 
-    .marquee .track {
-      height: 100%;
-      transform-origin: 0 0;
-      display: block;
-      position: relative;
-      transform: none;
-    }
+      .marquee .track {
+        height: 100%;
+        transform-origin: 0 0;
+        display: block;
+        position: relative;
+      }
 
-    .marquee .track > * {
-      height: 100%;
-      width: auto;
-      padding-left: 0.2em;
-      position: absolute;
-      object-fit: cover;
-    }
+      .marquee .track > * {
+        height: 100%;
+        width: auto;
+        padding-left: 4px;
+        position: absolute;
+        object-fit: cover;
+      }
 </style>

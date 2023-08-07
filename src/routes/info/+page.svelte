@@ -155,3 +155,20 @@
     </div>
     </div>
 </section>
+<section std>
+    <div class="con">
+      <div>
+        <h2>Featured on:</h2>
+      </div>
+      <div>
+        <h3>Godly<span>5</span></h3>
+        <h3>CCSDA<span>2</span></h3>
+        <h3>The FWA<span>4</span></h3>
+        <h3>Awwwards<span>3</span></h3>
+        <h3>SiteInspire<span>2</span></h3>
+        <h3>Mindsparkle<span>2</span></h3>
+        <h3>Typewolf<span>2</span></h3>
+        <h3>httpster<span>1</span></h3>
+      </div>
+    </div>
+  </section>
