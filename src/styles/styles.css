@@ -348,9 +348,7 @@ section > .con > h1:first-of-type {
   height: 100%;
   object-fit: cover;
 }
-.marquee video {
-  width: 100%;
-}
+
 /* {
     position: absolute;
     content: '';

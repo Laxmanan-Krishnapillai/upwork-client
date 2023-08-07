@@ -24,72 +24,62 @@ import { onMount } from "svelte";
         function runMarquee() {
             const allMarquees = document.querySelectorAll(".marquee");
             allMarquees.forEach((marquee, index) => {
-            marquee.querySelector(".track");
-            const allItems = marquee.querySelectorAll(".marquee>.track>*"),
-            proxy = document.createElement("div");
-            allItems.length;
-            let totalX = 0,
-            marqueeH = 0;
-            marquee.offsetWidth;
-            allItems.forEach((item, i) => {
-            const itemW = item.offsetWidth,
-            itemH = item.offsetHeight;
-            (totalX += itemW),
-            gsap.set(item, {
-            x: totalX,
-            width: itemW,
-            height: itemH,
-            }),
-            itemH > marqueeH && (marqueeH = itemH);
-            });
-            const marqueeVal = gsap.utils.wrap(0, totalX),
-            marqueeProgress = gsap.utils.wrap(0, 1);
-            gsap.set([marquee], {
-            height: marqueeH,
-            });
-            const stringX = `-=${totalX}`,
-            animation = gsap.to(allItems, {
-            repeat: -1,
-            duration: 300,
-            x: stringX,
-            ease: "none",
-            paused: !0,
-            modifiers: {
-            x: function (x, target) {
-            return `${(x =
-            ((parseInt(x) - totalX) % totalX) +
-            (totalX - target.offsetWidth))}px`;
-            },
-            },
-            });
-
-            function updateProgress() {
-                const dragValue = marqueeVal((this.deltaX / 2) * -1) / totalX,
-                currentProgressAnim = animation.progress(),
-                endProgress = marqueeProgress(currentProgressAnim + dragValue);
-                animation.progress(endProgress);
-            }
-            Draggable.create(proxy, {
-            type: "x",
-            trigger: marquee,
-            inertia: !0,
-            onDrag: updateProgress,
-            onThrowUpdate: updateProgress,
-            }),
-            window.addEventListener("resize", function resize() {
-            animation.render(animation.time(), !1, !0);
-            }),
-            animation.play();
-            });
-            // $('.marquee>.track>.*').on('click', function () {
-            // $(this).toggleClass('on');
-            // });
-            // Pure js instead of Jquery
-            const elements = document.querySelectorAll('.marquee>.track>*');
-            elements.forEach(element => {
-                element.addEventListener('click', function() {
-                    this.classList.toggle('on');
+                marquee.querySelector(".track");
+                const allItems = marquee.querySelectorAll(".marquee>.track>*"),
+                proxy = document.createElement("div");
+                allItems.length;
+                let totalX = 0,
+                marqueeH = 0;
+                marquee.offsetWidth;
+                allItems.forEach((item, i) => {
+                const itemW = item.offsetWidth,
+                itemH = item.offsetHeight;
+                (totalX += itemW),
+                gsap.set(item, {
+                x: totalX,
+                width: itemW,
+                height: itemH,
+                }),
+                itemH > marqueeH && (marqueeH = itemH);
                 });
+                const marqueeVal = gsap.utils.wrap(0, totalX),
+                marqueeProgress = gsap.utils.wrap(0, 1);
+                gsap.set([marquee], {
+                height: marqueeH,
+                });
+                const stringX = `-=${totalX}`,
+                animation = gsap.to(allItems, {
+                repeat: -1,
+                duration: 300,
+                x: stringX,
+                ease: "none",
+                paused: !0,
+                modifiers: {
+                    x: function (x, target) {
+                    return `${(x =
+                        ((parseInt(x) - totalX) % totalX) +
+                        (totalX - target.offsetWidth))}px`;
+                    },
+                },
+                });
+
+                function updateProgress() {
+                    const dragValue = marqueeVal((this.deltaX / 2) * -1) / totalX,
+                    currentProgressAnim = animation.progress(),
+                    endProgress = marqueeProgress(currentProgressAnim + dragValue);
+                    animation.progress(endProgress);
+                }
+                Draggable.create(proxy, {
+                    type: "x",
+                    trigger: marquee,
+                    inertia: !0,
+                    onDrag: updateProgress,
+                    onThrowUpdate: updateProgress,
+                }),
+                window.addEventListener("resize", function resize() {
+                animation.render(animation.time(), !1, !0);
+                }),
+                animation.play();
             });
         }
         runMarquee();
@@ -143,9 +133,9 @@ import { onMount } from "svelte";
                         <!-- Videos shall have the same settings as you can see belows -->
                         {#each media as {mimeType, url}}
                             {#if mimeType.includes("video")}
-                                <div class="item"><video loading="eager" autoplay loop muted src={url} alt=""></div>
+                                <div class="item"><video loading="eager" autoplay loop muted src={url} alt="" /></div>
                             {:else}
-                                <div class="item"><img loading="eager" src={url} alt=""></div>
+                                <div class="item"><img loading="eager" src={url} alt="" /></div>
                             {/if}
                         {/each}
                     </div>

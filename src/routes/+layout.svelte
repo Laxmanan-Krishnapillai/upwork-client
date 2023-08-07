@@ -20,13 +20,14 @@
     let smoother: any;
     // time elements
     let timeStatus: HTMLDivElement, timeValue: HTMLDivElement, timeState: HTMLDivElement, timeContainer: HTMLDivElement;
-    const pageAnim = () => {
+    const pageAnim = (fn?: () => {}) => {
         let tl = gsap.timeline();
         tl.to(animEl, {
             xPercent: 0,
             duration: .5,
             ease: "Power4.out"
         })
+        if(fn) tl.add(fn)
         tl.to(animEl, {
             xPercent: -100,
             duration: .5,
@@ -34,6 +35,7 @@
             delay: 0.5
         })
         tl.set(animEl, {xPercent: 100})
+        return tl;
     }
     function updateToggleText(theme: typeof storedTheme) {
         toggle.innerHTML = theme === "dark" ? "Light mode" : "Dark mode";
@@ -93,22 +95,20 @@
         // register GSAP, taken from main.js
         gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
         pageAnim();
-    })
-
-    navigating.subscribe((n)=>{
-        if(!browser) return;
-        const currentPageURL = window.location.href;
-        for (const link of document.getElementsByTagName("a")) {
-            if (link.href === currentPageURL) {
-                link.classList.add("current");
-            }
+        for (const l of document.getElementsByTagName("a")) {
+            l.addEventListener("click", async (e)=>{
+                pageAnim(()=>{
+                    goto(l.href)
+                })
+            })
         }
     })
     export let data;
     beforeNavigate(async (n)=>{
         if(!browser) return;
-        console.log("running")
-        pageAnim()
+        if(n.type === "link") n.cancel()
+        if(n.type === "popstate")
+            pageAnim()
     })
     afterNavigate(()=>{
         smoother = ScrollSmoother.create({
@@ -120,6 +120,12 @@
             effects: true,
             smoothTouch: false,
         });
+        const currentPageURL = window.location.href;
+        for (const link of document.getElementsByTagName("a")) {
+            if (link.href === currentPageURL) {
+                link.classList.add("current");
+            }
+        }
     })
 </script>
 
@@ -136,7 +142,7 @@
     updateLoadPercent()
 }} on:scroll={()=>{
     updateLoadPercent();
-}}/>
+}} />
 <Navigation/>
 
 <aside id="pageanim" bind:this={animEl} />
@@ -150,14 +156,12 @@
     <div bind:this={percentCount} percent>0%</div>
 </div>
 </aside>
-{#key data.url}
-    <div in:fade={{ duration: 100, delay: 500 }} out:fade={{duration: 100, delay: 500}} class="page">
-        <main>
-            <slot />
-            <Footer />
-        </main>
-    </div>
-{/key}
+<div in:fade={{ duration: 100, delay: 500 }} out:fade={{duration: 100, delay: 500}} class="page">
+    <main>
+        <slot />
+        <Footer />
+    </main>
+</div>
 <style>
     #pageanim {
         width: 100vw;
