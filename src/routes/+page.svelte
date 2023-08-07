@@ -147,4 +147,57 @@ import { onMount } from "svelte";
             </div>
         {/each}
 </section>
+
 <slot name="footer"/>
+
+<style>
+    .case:not(:last-of-type) {
+      width: 100%;
+      margin-bottom: calc(var(--gap) * 3);
+    }
+
+    .case > #top,
+    .case > #bot {
+      width: calc(var(--col-12) + var(--space));
+      margin-right: calc(var(--space) * -1);
+      gap: 0 var(--space);
+      padding: 0.25em 0;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .marquee {
+      position: relative;
+      overflow: hidden;
+      display: block;
+      margin-left: calc(var(--space) * -1);
+      width: 100vw;
+      height: 16em;
+    }
+
+    .marquee video {
+      filter: brightness(105%) contrast(96%) saturate(110%);
+      aspect-ratio: 1/1;
+    }
+
+    .marquee img {
+      filter: brightness(100%) contrast(98%) saturate(110%);
+    }
+
+    .marquee .track {
+      height: 100%;
+      transform-origin: 0 0;
+      display: block;
+      position: relative;
+      transform: none;
+    }
+
+    .marquee .track > * {
+      height: 100%;
+      width: auto;
+      padding-left: 0.2em;
+      position: absolute;
+      object-fit: cover;
+    }
+</style>

@@ -31,13 +31,13 @@
         tl.to(animEl, {
             xPercent: 0,
             duration: .5,
-            ease: "Power4.out"
+            ease: "Power4.inOut"
         })
-        if(fn) tl.add(fn)
+        tl.add(fn);
         tl.to(animEl, {
             xPercent: -100,
             duration: .5,
-            ease: "Power4.out",
+            ease: "Power4.inOut",
             delay: 0.5
         })
         tl.set(animEl, {xPercent: 100})
@@ -153,7 +153,7 @@
 }} />
 <Navigation/>
 
-<aside id="pageanim" bind:this={animEl} />
+<aside class="l" id="" bind:this={animEl} />
 
 <aside class="progress">
     <div class="con">
@@ -170,14 +170,3 @@
         <Footer />
     </main>
 </div>
-<style>
-    #pageanim {
-        width: 100vw;
-        height: 100vh;
-        background-color: black;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 50;
-    }
-</style>
