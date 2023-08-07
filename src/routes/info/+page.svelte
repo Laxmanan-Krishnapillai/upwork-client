@@ -1,5 +1,8 @@
 <script lang="ts">
-    export let data;
+    import type { PageData } from "./$types";
+    export let data: PageData;
+    $: clients = data.clients.map((c)=>c.name).sort((a, b) => a.localeCompare(b));
+    $: services = data.services.map((s)=>s.name).sort((a, b) => a.localeCompare(b));
 </script>
 
 <svelte:head>
@@ -133,8 +136,8 @@
         <h2>Services</h2>
     </div>
     <div col="6">
-        {#each data.services as {name}}
-            <h3>{name}</h3>
+        {#each services as service}
+            <h3>{service}</h3>
         {/each}
     </div>
     </div>
@@ -146,8 +149,8 @@
         <h2>Clients</h2>
     </div>
     <div col="6">
-        {#each data.clients as {name}}
-            <h3>{name}</h3>
+        {#each clients as client}
+            <h3>{client}</h3>
         {/each}
     </div>
     </div>

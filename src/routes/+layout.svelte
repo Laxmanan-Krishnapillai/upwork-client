@@ -6,7 +6,7 @@
     import { browser } from "$app/environment";
     import { onMount } from 'svelte';
     import { beforeNavigate, goto, afterNavigate } from "$app/navigation";
-    import { navigating } from '$app/stores';
+    import { navigating, page } from '$app/stores';
     import { fade } from "svelte/transition";
     // gsap config
     const duration = 0.6, ease = "power4.inOut", smoothSpeed = 0.6, smoothEase = "expo";
@@ -92,15 +92,6 @@
 
         // register GSAP, taken from main.js
         gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-        smoother = ScrollSmoother.create({
-            smooth: smoothSpeed,
-            wrapper: ".page",
-            content: "main",
-            preventDefault: true,
-            ease: smoothEase,
-            effects: true,
-            smoothTouch: false,
-        });
         pageAnim();
     })
 
@@ -120,6 +111,15 @@
         pageAnim()
     })
     afterNavigate(()=>{
+        smoother = ScrollSmoother.create({
+            smooth: smoothSpeed,
+            wrapper: ".page",
+            content: "main",
+            preventDefault: true,
+            ease: smoothEase,
+            effects: true,
+            smoothTouch: false,
+        });
     })
 </script>
 
