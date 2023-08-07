@@ -136,7 +136,7 @@
     updateLoadPercent()
 }} on:scroll={()=>{
     updateLoadPercent();
-}} />
+}}/>
 <Navigation/>
 
 <aside id="pageanim" bind:this={animEl} />
