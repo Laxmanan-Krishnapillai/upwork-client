@@ -21,7 +21,13 @@
     // time elements
     let timeStatus: HTMLDivElement, timeValue: HTMLDivElement, timeState: HTMLDivElement, timeContainer: HTMLDivElement;
     const pageAnim = (fn?: () => {}) => {
-        let tl = gsap.timeline();
+        const disablescroll = () => { document.documentElement.scrollTop = 0; document.body.scrollTop = 0; };
+        document.addEventListener('scroll', disablescroll, true)
+        let tl = gsap.timeline({
+            onComplete: ()=>{
+                document.removeEventListener("scroll", disablescroll, true);
+            }
+        });
         tl.to(animEl, {
             xPercent: 0,
             duration: .5,
@@ -106,9 +112,11 @@
     export let data;
     beforeNavigate(async (n)=>{
         if(!browser) return;
-        if(n.type === "link") n.cancel()
-        if(n.type === "popstate")
+        if(n.type === "link") {
+         n.cancel()
+        } else if(n.type === "popstate") {
             pageAnim()
+        }
     })
     afterNavigate(()=>{
         smoother = ScrollSmoother.create({
@@ -156,7 +164,7 @@
     <div bind:this={percentCount} percent>0%</div>
 </div>
 </aside>
-<div in:fade={{ duration: 100, delay: 500 }} out:fade={{duration: 100, delay: 500}} class="page">
+<div class="page">
     <main>
         <slot />
         <Footer />
@@ -171,6 +179,5 @@
         top: 0;
         left: 0;
         z-index: 50;
-        pointer-events: none;
     }
 </style>
